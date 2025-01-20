@@ -1,0 +1,33 @@
+
+.row{
+    display: flex;
+}
+
+.col{
+    flex: 50%;
+    border: 1px solid;
+}
+
+.sec02{
+    height: 400px;
+    border: 1px solid;
+    color: gray;
+}
+
+#idHearder{
+    height: 20px;
+    border: 1px solid;
+    color: gray;
+}
+
+.alt{
+    height: 50px;
+}
+
+.azul{
+    color: blue;
+}
+
+p{
+    color: rgb(255, 0, 0);
+}
