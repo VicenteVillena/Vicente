@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactanos</title>
+    <link rel="stylesheet" href="../Bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/Contactanos.css">    
+</head>
+<body class="container">
+        <!-- Header -->
+         <div>
+            
+         </div>
+
+
+         <div>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary mt-3">
+                <div class="container-fluid">
+                  <a id="idNavbar" class="navbar-brand" href="../index.html">Portafolio</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="../index.html">Inicio</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="./Proyecto.html">Proyecto</a>
+                      </li>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="">Contactanos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="./Page/Acerca_De.html">Acerca de</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                      </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form>
+                <div class="mb-3">
+                  <label for="idNomnbre" class="form-label">Nombres completos</label>
+                  <input type="nombre" class="form-control" id="idNomnbre">
+                </div>
+                <div class="mb-3">
+                    <label for="idGmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="idGmail">
+                  </div>
+                  <div class="mb-3">
+                    <label for="idNT" class="form-label">Numero de Telefono</label>
+                    <input type="numero" class="form-control" id="idNT">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="idCheckbox"  >
+                        <label class="form-check-label" for="idCheckbox">Confirmar Envío</label>
+                      </div>
+                    </form>
+                    <button id="idEnviar" class="btn btn-primary">Enviar</button>
+                  </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+    <script src="../jquery/jquery-3.7.1.min.js"></script>
+    <script src="../Bootstrap/popper.min.js"></script>
+    <script src="../Bootstrap/bootstrap.min.js"></script>
+    <script src="../js/inicio/Contactanos.js"></script>
+</body>
+
+<!-- Modal -->
+<div class="modal fade" id="idModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Advertecia</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Usted esta de acuerdo en enviar la informacion brindada?</p>
+        </div>
+        <div class="modal-footer">
+          <button onclick="enviardatosM()" id="idEnviarModal" type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</html>
