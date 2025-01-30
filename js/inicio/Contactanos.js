@@ -1,3 +1,8 @@
+$("#idBuscarC").on("click", function(){
+
+    window.location.href = "./Proyecto.html?valorBusqueda="+$("#idValorC").val();
+
+});
 
 $("#idEnviar").on('click', function(){
 
