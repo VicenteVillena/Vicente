@@ -19,6 +19,7 @@ let listaDeProyecytos = [
         ipProyecto: 1,
         titulo:"K-on el videojuego",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        fecha: "01/10/2024",
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -30,6 +31,7 @@ let listaDeProyecytos = [
         ipProyecto: 2,
         titulo:"Segundo Proyecto",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        fecha: "01/10/2024",
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -41,6 +43,7 @@ let listaDeProyecytos = [
         ipProyecto: 3,
         titulo:"Tercer Proyecto",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        fecha: "01/10/2024",
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -52,6 +55,7 @@ let listaDeProyecytos = [
         ipProyecto: 4,
         titulo:"Cuarto Proyecto",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        fecha: "01/10/2024",
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -65,8 +69,6 @@ $("#idBuscar").on("click", function(){
 
   buscarProyectos ($("#idValor").val());
 });
-
-debugger
 
 function buscarProyectos(val){
   proyectosTemporales = listaDeProyecytos;
@@ -85,14 +87,14 @@ function generarProyectos(){
 
       if (proyecto.imagenes.length >0){
 
-        for (let i = 0; 1 < proyecto.imagenes.length; i++){
+        for (let i = 0; i < proyecto.imagenes.length; i++){
           if (i == 0){
             itemsCarusel += '<div class="carousel-item active">'+
                             '<img src="'+proyecto.imagenes[i]+'" class="d-block w-100" alt="...">'+
                           '</div>';
           }else{
             itemsCarusel += '<div class="carousel-item active">'+
-                              ' <img src="'+proyecto.imagenes[i]+'" class="d-block w-100" alt="...">'+
+                              '<img src="'+proyecto.imagenes[i]+'" class="d-block w-100" alt="...">'+
                             '</div>';
           }
         }
@@ -122,7 +124,8 @@ function generarProyectos(){
             '<div class="card-body">'+
               '<h5 class="card-title">'+proyecto.titulo+'</h5>'+
               '<p class="card-text">'+proyecto.discripcion+'</p>'+
-              '<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>'+
+              '<p class="card-text"><small class="text-body-secondary">'+proyecto.fecha+'</small></p>'+
+              '<button onclick="vistaprevia()" id="preview" class="btn btn-sm btn-success" type="button">Ver Mas</button>'
             '</div>'+
           '</div>'+
         '</div>'+
@@ -144,5 +147,12 @@ function obtenerParam(){
     buscarProyectos(param);
 
   }
+}
 
+function vistaprevia(){
+
+    $("#TituloCambio").text();
+
+    //Validar que lo camps esten completos
+    $("#vistamodal").modal('show')
 }
