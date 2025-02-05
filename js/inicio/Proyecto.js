@@ -93,14 +93,14 @@ function generarProyectos(){
                             '<img src="'+proyecto.imagenes[i]+'" class="d-block w-100" alt="...">'+
                           '</div>';
           }else{
-            itemsCarusel += '<div class="carousel-item active">'+
+            itemsCarusel += '<div class="carousel-item">'+
                               '<img src="'+proyecto.imagenes[i]+'" class="d-block w-100" alt="...">'+
                             '</div>';
           }
         }
 
       }else{
-        itemsCarusel = '<div class="carousel-item active">'+
+        itemsCarusel = '<div class="carousel-item">'+
                          ' <img src="..." class="d-block w-100" alt="...">'+
                         '</div>';
       }
@@ -125,7 +125,7 @@ function generarProyectos(){
               '<h5 class="card-title">'+proyecto.titulo+'</h5>'+
               '<p class="card-text">'+proyecto.discripcion+'</p>'+
               '<p class="card-text"><small class="text-body-secondary">'+proyecto.fecha+'</small></p>'+
-              '<button onclick="vistaprevia()" id="preview" class="btn btn-sm btn-success" type="button">Ver Mas</button>'
+              '<button onclick="vistaprevia('+proyecto.ipProyecto+')" id="preview" class="btn btn-sm btn-success" type="button">Ver Mas</button>'
             '</div>'+
           '</div>'+
         '</div>'+
@@ -149,10 +149,49 @@ function obtenerParam(){
   }
 }
 
-function vistaprevia(){
+function vistaprevia(val){
+  let proyecto = listaDeProyecytos.find(x=> x.ipProyecto == val);
+debugger
+  $("#TituloCambio").text(proyecto.titulo);
+  $("#Desc").text(proyecto.discripcion);
 
-    $("#TituloCambio").text();
+  let itemsCarusel = "";
 
-    //Validar que lo camps esten completos
-    $("#vistamodal").modal('show')
+  if (proyecto.imagenes.length >0){
+
+    for (let i = 0; i < proyecto.imagenes.length; i++){
+      if (i == 0){
+        itemsCarusel += '<div class="carousel-item active">'+
+                        '<img src="'+proyecto.imagenes[i]+'" class="d-block w-100" alt="...">'+
+                      '</div>';
+      }else{
+        itemsCarusel += '<div class="carousel-item">'+
+                          '<img src="'+proyecto.imagenes[i]+'" class="d-block w-100" alt="...">'+
+                        '</div>';
+      }
+    }
+
+  }else{
+    itemsCarusel = '<div class="carousel-item">'+
+                     ' <img src="..." class="d-block w-100" alt="...">'+
+                    '</div>';
+  }
+
+    let item = ' <div class="card mb-3" style="max-width: 440px;">'+
+    '<div class="row g-0">'+
+      '<div class="col">'+
+      '<div id="carouselExample2'+proyecto.ipProyecto+'" class="carousel slide">'+
+      '<div class="carousel-inner">'+itemsCarusel+'</div>'+
+      '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample2'+proyecto.ipProyecto+'" data-bs-slide="prev">'+
+        '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
+        '<span class="visually-hidden">Previous</span>'+
+      '</button>'+
+      '<button class="carousel-control-next" type="button" data-bs-target="#carouselExample2'+proyecto.ipProyecto+'" data-bs-slide="next">'+
+        '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
+        '<span class="visually-hidden">Next</span>'+
+      '</button>'+
+    '</div>';
+    $("#idSlider").empty();
+    $("#idSlider").append(item);
+    $("#vistamodal").modal('show');
 }
