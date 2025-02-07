@@ -20,6 +20,8 @@ let listaDeProyecytos = [
         titulo:"K-on el videojuego",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         fecha: "01/10/2024",
+        tecnologia: ["html", "JavaScript", "Azure", "Sql Server"],
+        etiquetas: ["Juegos", "Online"],
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -32,6 +34,8 @@ let listaDeProyecytos = [
         titulo:"Segundo Proyecto",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         fecha: "01/10/2024",
+        tecnologia: ["html", "JavaScript", "Azure", "Sql Server"],
+        etiquetas: ["Juegos", "Online"],
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -44,6 +48,8 @@ let listaDeProyecytos = [
         titulo:"Tercer Proyecto",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         fecha: "01/10/2024",
+        tecnologia: ["html", "JavaScript", "Azure", "Sql Server"],
+        etiquetas: ["Juegos", "Online"],
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -56,6 +62,8 @@ let listaDeProyecytos = [
         titulo:"Cuarto Proyecto",
         discripcion:"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         fecha: "01/10/2024",
+        tecnologia: ["html", "JavaScript", "Azure", "Sql Server"],
+        etiquetas: ["Juegos", "Online"],
         imagenes: ["../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
           "../img/carousel/K-ON.png",
@@ -76,6 +84,7 @@ function buscarProyectos(val){
 
   generarProyectos();
 };
+
 
 function generarProyectos(){
     $(".alingItem").empty();
@@ -125,8 +134,13 @@ function generarProyectos(){
               '<h5 class="card-title">'+proyecto.titulo+'</h5>'+
               '<p class="card-text">'+proyecto.discripcion+'</p>'+
               '<p class="card-text"><small class="text-body-secondary">'+proyecto.fecha+'</small></p>'+
-              '<button onclick="vistaprevia('+proyecto.ipProyecto+')" id="preview" class="btn btn-sm btn-success" type="button">Ver Mas</button>'
+              '<button onclick="vistaprevia('+proyecto.ipProyecto+')" id="preview" class="btn btn-sm btn-success" type="button">Ver Mas</button>'+
+              '<small class="btn btn-sm btn-primary" onclick="editarProyecto('+proyecto.ipProyecto+')" >Editar</small>'+
             '</div>'+
+            '<span class="badge text-bg-info">'+proyecto.tecnologia[0]+'</span>'+
+            '<span class="badge text-bg-info">'+proyecto.tecnologia[1]+'</span>'+
+            '<span class="badge text-bg-info">'+proyecto.tecnologia[2]+'</span>'+
+            '<span class="badge text-bg-info">'+proyecto.tecnologia[3]+'</span>'+
           '</div>'+
         '</div>'+
       '</div>';
@@ -136,6 +150,50 @@ function generarProyectos(){
     }
 
 };
+
+function actualizarProy(val){
+  let indiceProy = listaDeProyecytos.findIndex(x=> x.ipProyecto == val);
+  listaDeProyecytos[indiceProy].titulo = $("#idTituloProyF").val();
+  listaDeProyecytos[indiceProy].discripcion = $("#idDescProyF").text();
+  listaDeProyecytos[indiceProy].fecha = $("#idFecProyF").val();
+
+  listaDeProyecytos[indiceProy].tecnologia = [];
+  let tec = $("#idTecProyF").val().split(";");
+  tec.forEach(e => {
+    listaDeProyecytos[indiceProy].tecnologia.push(e.trim());
+  });
+
+  generarProyectos();
+  $("#idModalForm").modal('hide');
+}
+
+function editarProyecto(val){
+
+ 
+  let proyecto = listaDeProyecytos.find(x=> x.ipProyecto == val);
+
+  $("#idTituloForm").text("Editando "+proyecto.titulo);
+
+  $("#idTituloProyF").val(proyecto.titulo);
+  $("#idDescProyF").text(proyecto.discripcion);
+  $("#idFecProyF").val(proyecto.fecha);
+
+
+  let tecnologia = proyecto.tecnologia.join(";");
+  let etiquetas = proyecto.etiquetas.join(";");
+  let imagenes = proyecto.imagenes.join(";");
+
+  $("#idTecProyF").val(tecnologia);
+  $("#idEtiqProyF").val(etiquetas);
+  $("#idImgProyF").val(imagenes);
+  $("#idBtnGuardar").empty();
+  $("#idBtnGuardar").append('<a class="btn btn-primary" onclick="actualizarProy('+proyecto.ipProyecto+')">Guardar</a>');
+
+  $("#idModalForm").modal('show');
+
+  }
+
+
 
 function obtenerParam(){
 
@@ -154,6 +212,9 @@ function vistaprevia(val){
 debugger
   $("#TituloCambio").text(proyecto.titulo);
   $("#Desc").text(proyecto.discripcion);
+
+  
+
 
   let itemsCarusel = "";
 
@@ -180,6 +241,8 @@ debugger
     let item = ' <div class="card mb-3" style="max-width: 440px;">'+
     '<div class="row g-0">'+
       '<div class="col">'+
+      '<span class="badge text-bg-danger">'+proyecto.etiquetas[0]+'</span>'+
+      '<span class="badge text-bg-danger">'+proyecto.etiquetas[1]+'</span>'+
       '<div id="carouselExample2'+proyecto.ipProyecto+'" class="carousel slide">'+
       '<div class="carousel-inner">'+itemsCarusel+'</div>'+
       '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample2'+proyecto.ipProyecto+'" data-bs-slide="prev">'+
@@ -190,6 +253,10 @@ debugger
         '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
         '<span class="visually-hidden">Next</span>'+
       '</button>'+
+      '<span class="badge text-bg-info">'+proyecto.tecnologia[0]+'</span>'+
+      '<span class="badge text-bg-info">'+proyecto.tecnologia[1]+'</span>'+
+      '<span class="badge text-bg-info">'+proyecto.tecnologia[2]+'</span>'+
+      '<span class="badge text-bg-info">'+proyecto.tecnologia[3]+'</span>'+
     '</div>';
     $("#idSlider").empty();
     $("#idSlider").append(item);

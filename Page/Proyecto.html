@@ -136,4 +136,56 @@
   </div>
 </div>
 
+<!--NuevoModal-->
+
+<div class="modal fade" id="idModalForm" tabindex="-1" aria-labelledby="idTituloForm" 
+data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="idTituloForm"></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="idTituloProyF" class="form-label">Titulo Proyecto</label>
+              <input type="text" class="form-control" id="idTituloProyF">
+            </div>
+            <div class="mb-3">
+              <label for="idDescProyF" class="form-label">Descripcion</label>
+              <textarea class="form-control" id="idDescProyF" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="idFecProyF" class="form-label">Fecha</label>
+              <input type="text" class="form-control" id="idFecProyF">
+            </div>
+
+            <div class="mb-3">
+              <label for="idTecProyF" class="form-label">Tecnologías</label>
+              <input type="text" class="form-control" id="idTecProyF" aria-describedby="TecHelp">
+              <div id="TecHelp" class="form-text">Use ";" como separador.</div>
+            </div>
+            <div class="mb-3">
+              <label for="idEtiqProyF" class="form-label">Etiquetas</label>
+              <input type="text" class="form-control" id="idEtiqProyF" aria-describedby="TagHelp">
+              <div id="TagHelp" class="form-text">Use ";" como separador.</div>
+            </div>
+            <div class="mb-3">
+              <label for="idImgProyF" class="form-label">Imagenes</label>
+              <input type="text" class="form-control" id="idImgProyF" aria-describedby="ImgHelp">
+              <div id="ImgHelp" class="form-text">Use ";" como separador.</div>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>            
+          </form>
+          <div id="idBtnGuardar">
+          </div>          
+      </div>
+    </div>
+  </div>
+</div>
+
 </html>
