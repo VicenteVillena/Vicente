@@ -85,6 +85,17 @@ function buscarProyectos(val){
   generarProyectos();
 };
 
+function generarTags(arr){
+  let resultado = "";
+
+  if (arr != undefined && arr != null && arr.length > 0) {
+    arr.forEach(e => {
+      resultado += '<span class="badge text-bg-success">'+e+'</span>';
+    });
+  }
+
+  return resultado;
+}
 
 function generarProyectos(){
     $(".alingItem").empty();
@@ -136,11 +147,8 @@ function generarProyectos(){
               '<p class="card-text"><small class="text-body-secondary">'+proyecto.fecha+'</small></p>'+
               '<button onclick="vistaprevia('+proyecto.ipProyecto+')" id="preview" class="btn btn-sm btn-success" type="button">Ver Mas</button>'+
               '<small class="btn btn-sm btn-primary" onclick="editarProyecto('+proyecto.ipProyecto+')" >Editar</small>'+
+              '<div>'+generarTags(proyecto.etiquetas)+'</div>'+
             '</div>'+
-            '<span class="badge text-bg-info">'+proyecto.tecnologia[0]+'</span>'+
-            '<span class="badge text-bg-info">'+proyecto.tecnologia[1]+'</span>'+
-            '<span class="badge text-bg-info">'+proyecto.tecnologia[2]+'</span>'+
-            '<span class="badge text-bg-info">'+proyecto.tecnologia[3]+'</span>'+
           '</div>'+
         '</div>'+
       '</div>';
@@ -151,49 +159,80 @@ function generarProyectos(){
 
 };
 
+function ValidadCampo(){
+
+  let valido = false;
+
+  let vUno = $("#idTituloProyF").val();
+  let vDos = $("#idDescProyF").text();
+  let vTres = $("#idFecProyF").val();
+
+  if (vUno != undefined && vUno != null && vUno.trim()!= "" &&
+      vDos != undefined && vDos != null && vDos.trim()!= "" &&
+      vTres != undefined && vTres != null && vTres.trim()!= "") {
+        valido = true
+  }
+
+  return valido;
+}
+
 function actualizarProy(val){
-  let indiceProy = listaDeProyecytos.findIndex(x=> x.ipProyecto == val);
-  listaDeProyecytos[indiceProy].titulo = $("#idTituloProyF").val();
-  listaDeProyecytos[indiceProy].discripcion = $("#idDescProyF").text();
-  listaDeProyecytos[indiceProy].fecha = $("#idFecProyF").val();
 
-  listaDeProyecytos[indiceProy].tecnologia = [];
-  let tec = $("#idTecProyF").val().split(";");
-  tec.forEach(e => {
-    listaDeProyecytos[indiceProy].tecnologia.push(e.trim());
-  });
-
-  generarProyectos();
-  $("#idModalForm").modal('hide');
+  if (ValidadCampo()){
+    let indiceProy = listaDeProyecytos.findIndex(x=> x.ipProyecto == val);
+    listaDeProyecytos[indiceProy].titulo = $("#idTituloProyF").val();
+    listaDeProyecytos[indiceProy].discripcion = $("#idDescProyF").text();
+    listaDeProyecytos[indiceProy].fecha = $("#idFecProyF").val();
+  
+    listaDeProyecytos[indiceProy].tecnologia = [];
+    listaDeProyecytos[indiceProy].etiquetas = [];
+    listaDeProyecytos[indiceProy].imagenes = [];
+    let tec = $("#idTecProyF").val().split(";");
+    tec.forEach(e => {
+      listaDeProyecytos[indiceProy].tecnologia.push(e.trim());
+    });
+    let tag = $("#idEtiqProyF").val().split(";");
+    tag.forEach(e => {
+      listaDeProyecytos[indiceProy].etiquetas.push(e.trim());
+    });
+    let img = $("#idImgProyF").val().split(";");
+    img.forEach(e => {
+      listaDeProyecytos[indiceProy].imagenes.push(e.trim());
+    });
+  
+    generarProyectos();
+    $("#idModalForm").modal('hide');
+  }else{
+    $("#IdModalAdvert").modal('show');
+  }
+  
 }
 
 function editarProyecto(val){
-
- 
-  let proyecto = listaDeProyecytos.find(x=> x.ipProyecto == val);
-
-  $("#idTituloForm").text("Editando "+proyecto.titulo);
-
-  $("#idTituloProyF").val(proyecto.titulo);
-  $("#idDescProyF").text(proyecto.discripcion);
-  $("#idFecProyF").val(proyecto.fecha);
-
-
-  let tecnologia = proyecto.tecnologia.join(";");
-  let etiquetas = proyecto.etiquetas.join(";");
-  let imagenes = proyecto.imagenes.join(";");
-
-  $("#idTecProyF").val(tecnologia);
-  $("#idEtiqProyF").val(etiquetas);
-  $("#idImgProyF").val(imagenes);
-  $("#idBtnGuardar").empty();
-  $("#idBtnGuardar").append('<a class="btn btn-primary" onclick="actualizarProy('+proyecto.ipProyecto+')">Guardar</a>');
-
-  $("#idModalForm").modal('show');
-
+  
+   
+    let proyecto = listaDeProyecytos.find(x=> x.ipProyecto == val);
+  
+    $("#idTituloForm").text("Editando "+proyecto.titulo);
+  
+    $("#idTituloProyF").val(proyecto.titulo);
+    $("#idDescProyF").text(proyecto.discripcion);
+    $("#idFecProyF").val(proyecto.fecha);
+  
+  
+    let tecnologia = proyecto.tecnologia.join(";");
+    let etiquetas = proyecto.etiquetas.join(";");
+    let imagenes = proyecto.imagenes.join(";");
+  
+    $("#idTecProyF").val(tecnologia);
+    $("#idEtiqProyF").val(etiquetas);
+    $("#idImgProyF").val(imagenes);
+    $("#idBtnGuardar").empty();
+    $("#idBtnGuardar").append('<a class="btn btn-primary" onclick="actualizarProy('+proyecto.ipProyecto+')">Guardar</a>');
+  
+    $("#idModalForm").modal('show');
+  
   }
-
-
 
 function obtenerParam(){
 
@@ -253,10 +292,6 @@ debugger
         '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
         '<span class="visually-hidden">Next</span>'+
       '</button>'+
-      '<span class="badge text-bg-info">'+proyecto.tecnologia[0]+'</span>'+
-      '<span class="badge text-bg-info">'+proyecto.tecnologia[1]+'</span>'+
-      '<span class="badge text-bg-info">'+proyecto.tecnologia[2]+'</span>'+
-      '<span class="badge text-bg-info">'+proyecto.tecnologia[3]+'</span>'+
     '</div>';
     $("#idSlider").empty();
     $("#idSlider").append(item);
