@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  getItems();
+
   proyectosTemporales = listaDeProyecytos
     generarProyectos();
 
@@ -176,10 +178,38 @@ function ValidadCampo(){
   return valido;
 }
 
-function actualizarProy(val){
+function actualizarProy(idItem){
+  
+
 
   if (ValidadCampo()){
-    let indiceProy = listaDeProyecytos.findIndex(x=> x.ipProyecto == val);
+
+let item = {
+  "titulo": $("#idTituloProyF").val(),
+  "descripcion": $("#idDescProyF").text(),
+  "fecha": $("#idFecProyF").val(),
+  "tecnologias": $("#idTecProyF").val().split(";"),
+  "etiquetas": $("#idEtiqProyF").val().split(";"),
+  "imagenes": $("#idImgProyF").val().split(";")
+};
+
+
+    var settings = {
+      "url": "http://localhost:9000/api/todos/"+idItem,
+      "method": "PUT",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify(item),
+    };
+    
+    $.ajax(settings).done(function (response) {
+      generarProyectos();
+      $("#idModalForm").modal('hide');
+    });
+
+    /*let indiceProy = listaDeProyecytos.findIndex(x=> x.ipProyecto == val);
     listaDeProyecytos[indiceProy].titulo = $("#idTituloProyF").val();
     listaDeProyecytos[indiceProy].discripcion = $("#idDescProyF").text();
     listaDeProyecytos[indiceProy].fecha = $("#idFecProyF").val();
@@ -199,18 +229,17 @@ function actualizarProy(val){
     img.forEach(e => {
       listaDeProyecytos[indiceProy].imagenes.push(e.trim());
     });
-  
-    generarProyectos();
-    $("#idModalForm").modal('hide');
+  */
+
   }else{
     $("#IdModalAdvert").modal('show');
   }
-  
 }
 
 function editarProyecto(val){
   
    
+
     let proyecto = listaDeProyecytos.find(x=> x.ipProyecto == val);
   
     $("#idTituloForm").text("Editando "+proyecto.titulo);
@@ -297,3 +326,19 @@ debugger
     $("#idSlider").append(item);
     $("#vistamodal").modal('show');
 }
+
+function getItems(){
+  let result = null;
+  $.ajax({
+  url: "http://localhost:9000/api/todos",
+  type: "GET",
+  async: false,
+  cache: false,
+  success: function (d) {
+  listaDeProyecytos = d;
+  }
+  });
+  return result;
+  }
+  
+  
